@@ -1,7 +1,7 @@
 {
-  "name": "wascally",
+  "name": "caerbannog",
   "version": "0.2.0-5",
-  "description": "Abstractions to simplify working with the wascally wabbitMQ",
+  "description": "Abstractions to simplify working with the RabbitMQ",
   "main": "src/index.js",
   "scripts": {
     "test": "gulp test"
