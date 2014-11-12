@@ -1,4 +1,4 @@
-# Wascally
+# RabbitMQ of Caerbannog
 This is a very opinionated abstraction over amqplib to help simplify certain common tasks and (hopefully) reduce the effort required to use RabbitMQ in your Node services.
 
 Features:
@@ -56,7 +56,7 @@ rabbit.publish( 'log.entries', 'company.project.messages.logEntry', {
 ```
 
 ### request( exchangeName, options, [connectionName] )
-This works just like a publish except that the promise returned provides the response (or responses) from the other side. 
+This works just like a publish except that the promise returned provides the response (or responses) from the other side.
 
 ```javascript
 // when multiple responses are provided, all but the last will be provided via the .progress callback.
@@ -69,7 +69,7 @@ rabbit.request( 'request.exchange', {
 	} )
 	.then( function( final ) {
 		// the last message in a series OR the only reply will be sent to this callback
-	} ); 
+	} );
 ```
 
 ### handle( typeName, handler, [context] )
@@ -93,7 +93,7 @@ handler.remove();
 Starts a consumer on the queue specified. connectionName is optional and only required if you're subscribing to a queue on a connection other than the default one.
 
 ## Message API
-Wascally defaults to (and assumes) queues are in ack mode. It batches ack and nack operations in order to improve total throughput. Ack/Nack calls do not take effect immediately.
+Caerbannog defaults to (and assumes) queues are in ack mode. It batches ack and nack operations in order to improve total throughput. Ack/Nack calls do not take effect immediately.
 
 ### message.ack()
 Enqueues the message for acknowledgement.
@@ -169,7 +169,7 @@ This example shows most of the available options described above.
 
 To establish a connection with all settings in place and ready to go call configure:
 ```javascript
-	var rabbit = require( 'wascally' );
+	var rabbit = require( 'caerbannog' );
 
 	rabbit.configure( settings ).done( function() {
 		// ready to go!
@@ -177,15 +177,14 @@ To establish a connection with all settings in place and ready to go call config
 ```
 
 ## AMQPS, SSL/TLS Support
-Providing the following configuration options setting the related environment varibles will cause wascally to attempt connecting via AMQPS. For more details about which settings perform what role, refer to the amqplib's page on [SSL](http://www.squaremobius.net/amqp.node/doc/ssl.html).
+Providing the following configuration options setting the related environment varibles will cause Caerbannog to attempt connecting via AMQPS. For more details about which settings perform what role, refer to the amqplib's page on [SSL](http://www.squaremobius.net/amqp.node/doc/ssl.html).
 
 ```javascript
 	connection: { 		// sample connection hash
-		caPath: '', 	// comma delimited paths to CA files. RABBIT_CA 
-		certPath: '', 	// path to cert file. RABBIT_CERT 
+		caPath: '', 	// comma delimited paths to CA files. RABBIT_CA
+		certPath: '', 	// path to cert file. RABBIT_CERT
 		keyPath: '',	// path to key file. RABBIT_KEY
 		passphrase: '', // passphrase associated with cert/pfx. RABBIT_PASSPHRASE
 		pfxPath: ''		// path to pfx file. RABBIT_PFX
 	}
 ```
-
