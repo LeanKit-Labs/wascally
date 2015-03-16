@@ -49,7 +49,7 @@ var Topology = function( connection, options, unhandledStrategies ) {
 	}
 	if ( replyQueueName.toLowerCase() === 'rabbitmq' ) {
 		this.replyQueue = rabbitReplyTo;
-	} else if ( _.has( options, 'replyQueue' ) ) {
+	} else if ( _.has( options, 'replyQueue' ) && options.replyQueue ) {
 		this.replyQueue = userReplyTo;
 	} else {
 		this.replyQueue = autoReplyTo;
