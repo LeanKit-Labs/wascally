@@ -31,7 +31,7 @@ function define( channel, options, subscriber, connectionName ) {
 	}
 
 	topLog.info( 'Declaring queue \'%s\' on connection \'%s\' with the options: %s',
-		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ),valid );
+		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ) );
 	return channel.assertQueue( options.name, valid )
 		.then( function( q ) {
 			if ( options.limit ) {
