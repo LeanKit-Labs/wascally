@@ -23,7 +23,8 @@ function define( channel, options, subscriber, connectionName ) {
 		queueLimit: 'maxLength',
 		deadletter: 'deadLetterExchange',
 		deadLetter: 'deadLetterExchange',
-		deadLetterRoutingKey: 'deadLetterRoutingKey'
+		deadLetterRoutingKey: 'deadLetterRoutingKey',
+		maxPriority: 'x-max-priority'
 	}, 'subscribe', 'limit', 'noBatch' );
 	topLog.info( 'Declaring queue \'%s\' on connection \'%s\' with the options: %s',
 		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ) );
@@ -32,6 +33,7 @@ function define( channel, options, subscriber, connectionName ) {
 			if ( options.limit ) {
 				channel.prefetch( options.limit );
 			}
+
 			if ( options.subscribe ) {
 				subscriber();
 			}
