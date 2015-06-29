@@ -37,7 +37,6 @@ function define( channel, options, subscriber, connectionName ) {
 			if ( options.limit ) {
 				channel.prefetch( options.limit );
 			}
-
 			if ( options.subscribe ) {
 				subscriber();
 			}
