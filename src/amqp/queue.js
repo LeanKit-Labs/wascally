@@ -24,10 +24,14 @@ function define( channel, options, subscriber, connectionName ) {
 		deadletter: 'deadLetterExchange',
 		deadLetter: 'deadLetterExchange',
 		deadLetterRoutingKey: 'deadLetterRoutingKey',
-		maxPriority: 'x-max-priority'
-	}, 'subscribe', 'limit', 'noBatch' );
+	}, 'subscribe', 'limit', 'noBatch', 'maxPriority' );
+
+	if (options.hasOwnProperty('maxPriority')){
+		valid['arguments']={'x-max-priority': options['maxPriority']};
+	}
+
 	topLog.info( 'Declaring queue \'%s\' on connection \'%s\' with the options: %s',
-		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ) );
+		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ),valid );
 	return channel.assertQueue( options.name, valid )
 		.then( function( q ) {
 			if ( options.limit ) {
