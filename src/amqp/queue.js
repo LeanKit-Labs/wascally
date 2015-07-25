@@ -23,8 +23,13 @@ function define( channel, options, subscriber, connectionName ) {
 		queueLimit: 'maxLength',
 		deadletter: 'deadLetterExchange',
 		deadLetter: 'deadLetterExchange',
-		deadLetterRoutingKey: 'deadLetterRoutingKey'
-	}, 'subscribe', 'limit', 'noBatch' );
+		deadLetterRoutingKey: 'deadLetterRoutingKey',
+	}, 'subscribe', 'limit', 'noBatch', 'maxPriority' );
+
+	if (options.hasOwnProperty('maxPriority')){
+		valid['arguments']={'x-max-priority': options['maxPriority']};
+	}
+
 	topLog.info( 'Declaring queue \'%s\' on connection \'%s\' with the options: %s',
 		options.name, connectionName, JSON.stringify( _.omit( options, [ 'name' ] ) ) );
 	return channel.assertQueue( options.name, valid )
