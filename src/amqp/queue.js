@@ -193,7 +193,12 @@ function subscribe( channelName, channel, topology, messages, options ) {
 	log.info( 'Starting subscription %s - %s', channelName, topology.connection.name );
 	return channel.consume( channelName, function( raw ) {
 		var correlationId = raw.properties.correlationId;
-		raw.body = JSON.parse( raw.content.toString( 'utf8' ) );
+		var contentString = raw.content.toString( 'utf8' );
+		if ( options.noParse ) {
+			raw.body = contentString;
+		} else {
+			raw.body = JSON.parse( contentString );
+		}
 
 		var ops = getResolutionOperations( channel, raw, messages, options );
 
