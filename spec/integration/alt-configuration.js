@@ -10,6 +10,11 @@ module.exports = {
 	},
 	exchanges: [
 		{
+			name: 'noreply-ex.direct.noParse',
+			type: 'direct',
+			autoDelete: true
+		},
+		{
 			name: 'noreply-ex.direct',
 			type: 'direct',
 			autoDelete: true
@@ -18,6 +23,12 @@ module.exports = {
 
 	queues: [
 		{
+			name: 'noreply-q.direct.noParse',
+			autoDelete: true,
+			noParse: true,
+			subscribe: true
+		},
+		{
 			name: 'noreply-q.direct',
 			autoDelete: true,
 			subscribe: true
@@ -25,6 +36,11 @@ module.exports = {
 	],
 
 	bindings: [
+		{
+			exchange: 'noreply-ex.direct.noParse',
+			target: 'noreply-q.direct.noParse',
+			keys: ''
+		},
 		{
 			exchange: 'noreply-ex.direct',
 			target: 'noreply-q.direct',
