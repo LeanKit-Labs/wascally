@@ -233,6 +233,7 @@ The following structure shows and briefly explains the format of the message tha
 	},
 	content: { "type": "Buffer", "data": [ ... ] }, // raw buffer of message body
 	body: , // this could be an object, string, etc - whatever was published
+	        // if the queue was configured with the noParse option, it will be a string
 	type: "" // this also contains the type of the message published
 }
 ```
@@ -393,14 +394,22 @@ This example shows most of the available options described above.
 			{ name: 'config-ex.1', type: 'fanout', publishTimeout: 1000 },
 			{ name: 'config-ex.2', type: 'topic', alternate: 'alternate-ex.2', persistent: true },
 			{ name: 'dead-letter-ex.2', type: 'fanout' }
+			{ name: 'config-ex.3', type: 'fanout', publishTimeout: 1000 },
 			],
 		queues:[
 			{ name:'config-q.1', limit: 100, queueLimit: 1000 },
 			{ name:'config-q.2', subscribe: true, deadLetter: 'dead-letter-ex.2' }
+			{
+				name:'config-q.3',
+				limit: 100,
+				queueLimit: 1000,
+				noParse: true // message bodies will NOT be parsed as JSON
+			},
 			],
 		bindings:[
 			{ exchange: 'config-ex.1', target: 'config-q.1', keys: [ 'bob','fred' ] },
 			{ exchange: 'config-ex.2', target: 'config-q.2', keys: 'test1' }
+			{ exchange: 'config-ex.3', target: 'config-q.3', keys: 'test1' }
 		]
 	};
 ```
