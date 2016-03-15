@@ -243,4 +243,8 @@ Monologue.mixInto( Broker );
 
 var broker = new Broker();
 
-module.exports = broker;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Broker = Broker;
+exports.default = broker;
