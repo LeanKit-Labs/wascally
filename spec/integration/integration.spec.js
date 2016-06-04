@@ -557,6 +557,42 @@ describe( 'Integration Test Suite - Alternate Configuration', function() {
 		} );
 	} );
 
+	describe( 'with noParse', function() {
+		var harness, messagesToSend;
+
+		before( function( done ) {
+			messagesToSend = 3;
+			harness = harnessFn( done, messagesToSend );
+
+			harness.handle( 'no.replyQueue.noParse', function( message ) {
+				message.ack();
+			} );
+
+			for (var i = 0; i < messagesToSend; i++) {
+				rabbit.publish( 'noreply-ex.direct.noParse', {
+					type: 'no.replyQueue.noParse',
+					body: {'message': i},
+					routingKey: ''
+				} );
+			}
+		} );
+
+		it( 'should receive all messages without parsing them as JSON', function() {
+			harness.received.length.should.equal( messagesToSend );
+			var results = _.map( harness.received, function( m ) {
+				return {
+					body: m.body
+				};
+			} );
+			_.sortBy( results, 'body' ).should.eql(
+				[
+					{ body: '{"message":0}' },
+					{ body: '{"message":1}' },
+					{ body: '{"message":2}' },
+				] );
+		} );
+	} );
+
 	after( function() {
 		return rabbit.closeAll().then( function() {
 			rabbit.reset();
