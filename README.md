@@ -1,5 +1,7 @@
 # Wascally
 
+### No longer under activate development. Please see [rabbot](https://github.com/arobson/rabbot) for a similar API with more features and better failure semantics.
+
 [![Version npm](https://img.shields.io/npm/v/wascally.svg?style=flat)](https://www.npmjs.com/package/wascally)
 [![npm Downloads](https://img.shields.io/npm/dm/wascally.svg?style=flat)](https://www.npmjs.com/package/wascally)
 [![Dependencies](https://img.shields.io/david/LeanKit-Labs/wascally.svg?style=flat)](https://david-dm.org/LeanKit-Labs/wascally)
