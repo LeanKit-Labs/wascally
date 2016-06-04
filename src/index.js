@@ -39,6 +39,7 @@ Broker.prototype.addConnection = function( options ) {
 			this.emit( connection.name + '.connection.opened', connection );
 		}.bind( this ) );
 		connection.on( 'closed', function() {
+			this.clearAckInterval();
 			this.emit( 'closed', connection );
 			this.emit( connection.name + '.connection.closed', connection );
 		}.bind( this ) );
