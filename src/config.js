@@ -46,7 +46,7 @@ module.exports = function( Broker ) {
 
 			function finish() {
 				emit( connection.name + '.connection.configured', connection );
-				resolve();
+				resolve(connection);
 			}
 
 			connection = this.addConnection( config.connection );
