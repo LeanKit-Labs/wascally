@@ -105,7 +105,7 @@ function getReply( channel, raw, replyQueue, connectionName ) {
 				replyTo,
 				connectionName,
 				publishOptions.type );
-			if ( raw.properties.headers[ 'direct-reply-to' ] ) {
+			if ( raw.properties.headers && raw.properties.headers[ 'direct-reply-to' ] ) {
 				return channel.publish(
 					'',
 					replyTo,
